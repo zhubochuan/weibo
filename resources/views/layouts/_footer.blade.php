@@ -1,5 +1,5 @@
 <footer class="footer">
     <div class="float-right">
-        <a href="/about">about</a>
+        <a href="route('about')">about</a>
     </div>
 </footer>
