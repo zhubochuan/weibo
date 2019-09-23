@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Auth;
 
 use Illuminate\Http\Request;
 
@@ -29,6 +30,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
+        Auth::login($user);
         session()->flash('success','welcome');
         return redirect()->route('users.show', [$user]);
     }
