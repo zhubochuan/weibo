@@ -18,6 +18,13 @@ class UserController extends Controller
             'only' => ['create']
         ]);
     }
+    public function destroy(User $user)
+    {
+        $this->authorize('destroy', $user);
+        $user->delete();
+        session()->flash('success', 'delete successfully！');
+        return back();
+    }
     public function index()
     {
         $users = User::paginate(10);
