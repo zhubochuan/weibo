@@ -24,4 +24,5 @@ class StatusesController extends Controller
         session()->flash('success', 'post success！');
         return redirect()->back();
     }
+    
 }
