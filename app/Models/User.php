@@ -43,7 +43,7 @@ class User extends Authenticatable
         $hash = md5(strtolower(trim($this->attributes['email'])));
         return "http://www.gravatar.com/avatar/$hash?s=$size";
     }
-  
+
     public static function boot()
     {
         parent::boot();
@@ -55,10 +55,29 @@ class User extends Authenticatable
     public function statuses()
     {
         return $this->hasMany(Status::class);
-    } 
+    }
     public function feed()
     {
         return $this->statuses()
-                    ->orderBy('created_at', 'desc');
+            ->orderBy('created_at', 'desc');
+    }
+    public function follow($user_ids)
+    {
+        if (!is_array($user_ids)) {
+            $user_ids = compact('user_ids');
+        }
+        $this->followings()->sync($user_ids, false);
+    }
+
+    public function unfollow($user_ids)
+    {
+        if (!is_array($user_ids)) {
+            $user_ids = compact('user_ids');
+        }
+        $this->followings()->detach($user_ids);
+    }
+    public function isFollowing($user_id)
+    {
+        return $this->followings->contains($user_id);
     }
 }
