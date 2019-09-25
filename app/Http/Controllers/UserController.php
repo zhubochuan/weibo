@@ -106,8 +106,8 @@ class UserController extends Controller
         $to = $user->email;
         $subject = "thank you for signup, please check your mail to active your accout";
 
-        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
-            $message->from($from, $name)->to($to)->subject($subject);
+        Mail::send($view, $data, function ($message) use ($to, $subject) {
+            $message->to($to)->subject($subject);
         });
     }
 
