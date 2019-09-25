@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Status;
 use Auth;
 
@@ -24,5 +25,11 @@ class StatusesController extends Controller
         session()->flash('success', 'post success！');
         return redirect()->back();
     }
-    
+    public function destroy(Status $status)
+    {
+        $this->authorize('destroy', $status);
+        $status->delete();
+        session()->flash('success', 'your post has been deleted！');
+        return redirect()->back();
+    }
 }
